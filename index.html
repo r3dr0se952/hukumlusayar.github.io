@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Özgürlüğe Kalan Süre</title>
+<style>
+:root{
+  --duvar:#3b3a37; --duvar2:#2a2927; --koyu:#171716;
+  --celik:#8a9097; --celik2:#4d5258;
+  --kagit:#ddd5bf; --murekkep:#23221f;
+  --pas:#b3261e; --isik:#f1d98a;
+}
+*{box-sizing:border-box}
+html,body{margin:0;min-height:100%;background:var(--koyu);color:var(--kagit);font-family:"Courier New",ui-monospace,monospace}
+body{
+  background:
+    radial-gradient(ellipse 60% 45% at 50% 0%,rgba(241,217,138,.16),transparent 70%),
+    repeating-linear-gradient(0deg,rgba(0,0,0,.18) 0 2px,transparent 2px 120px),
+    repeating-linear-gradient(90deg,rgba(255,255,255,.025) 0 1px,transparent 1px 240px),
+    linear-gradient(var(--duvar),var(--duvar2));
+  background-attachment:fixed;
+}
+/* demir parmaklıklar: sol ve sağ kenar */
+body::before,body::after{content:"";position:fixed;top:0;bottom:0;width:clamp(26px,7vw,90px);z-index:1;pointer-events:none;
+  background:repeating-linear-gradient(90deg,transparent 0 6px,var(--celik2) 6px 12px,var(--celik) 12px 15px,var(--celik2) 15px 21px,transparent 21px 38px);
+  box-shadow:inset 0 0 30px rgba(0,0,0,.6)}
+body::before{left:0}
+body::after{right:0}
+main{position:relative;z-index:2;max-width:880px;margin:0 auto;padding:26px clamp(34px,9vw,110px) 48px;display:flex;flex-direction:column;gap:26px}
+
+/* pencere */
+.pencere{height:clamp(120px,22vw,190px);border:10px solid var(--koyu);outline:3px solid var(--celik2);
+  background:linear-gradient(#0e1620,#2a3a4d 70%,#5c6f86);position:relative;overflow:hidden;box-shadow:inset 0 0 30px #000}
+.pencere::before{content:"";position:absolute;inset:0;
+  background:repeating-linear-gradient(90deg,transparent 0 calc(25% - 5px),var(--celik2) calc(25% - 5px) calc(25% + 5px),transparent calc(25% + 5px) 25%)}
+.pencere::after{content:"";position:absolute;left:0;right:0;top:50%;height:8px;background:var(--celik2);box-shadow:0 0 8px #000}
+.ay{position:absolute;right:14%;top:16%;width:34px;height:34px;border-radius:50%;background:#e9e6d6;box-shadow:0 0 28px 6px rgba(233,230,214,.35)}
+.slogan{text-align:center;margin:0;font-size:clamp(13px,3vw,17px);color:#b9b29d;line-height:1.6}
+
+h1{margin:0;text-align:center;font:400 clamp(30px,7vw,60px)/1.05 Impact,Haettenschweiler,"Arial Narrow Bold",sans-serif;letter-spacing:.06em;color:var(--kagit);text-shadow:2px 2px 0 #000}
+.tarih{display:block;text-align:center;margin-top:8px;color:var(--pas);font-weight:700;letter-spacing:.12em;font-size:clamp(14px,3.2vw,20px)}
+
+/* kağıt kart */
+.kagit{background:var(--kagit);color:var(--murekkep);padding:22px clamp(14px,4vw,28px);box-shadow:0 8px 24px rgba(0,0,0,.6);position:relative;
+  background-image:repeating-linear-gradient(transparent 0 31px,rgba(35,34,31,.12) 31px 32px)}
+.kagit::before{content:"";position:absolute;left:clamp(30px,6vw,46px);top:0;bottom:0;width:2px;background:rgba(179,38,30,.5)}
+.sayac{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;padding-left:clamp(22px,5vw,40px)}
+.hane{text-align:center}
+.say{font:400 clamp(34px,9vw,78px)/1 Impact,Haettenschweiler,"Arial Narrow Bold",sans-serif;color:var(--murekkep);font-variant-numeric:tabular-nums}
+.et{font-size:clamp(11px,2.5vw,15px);font-weight:700;color:var(--pas);margin-top:6px}
+.ozet{padding-left:clamp(22px,5vw,40px);margin-top:20px;line-height:2;font-size:clamp(13px,2.8vw,17px)}
+.ozet b{color:var(--pas)}
+.bar{margin:14px 0 0 clamp(22px,5vw,40px);height:18px;border:2px solid var(--murekkep);background:rgba(0,0,0,.08)}
+.bar i{display:block;height:100%;width:0;background:repeating-linear-gradient(45deg,var(--murekkep) 0 6px,#4a4840 6px 12px)}
+
+/* kazıma çizgileri */
+.kazi{background:var(--duvar2);border:3px solid var(--koyu);padding:18px;box-shadow:inset 0 0 40px rgba(0,0,0,.6);text-align:center}
+.kazi h2,.izin h2{margin:0 0 12px;font:400 20px Impact,Haettenschweiler,sans-serif;letter-spacing:.1em;color:var(--kagit)}
+.kazi small{display:block;color:#a39d8a;margin-top:10px;font-size:13px}
+.grp{display:inline-block;margin:4px 8px}
+.grp svg{width:44px;height:36px;display:block}
+.grp line{stroke:#d8d2c0;stroke-width:3;stroke-linecap:round;opacity:.9}
+.grp line.x{stroke:var(--pas);opacity:1}
+
+/* izinler */
+.izin{background:var(--koyu);border:3px solid var(--celik2);padding:18px}
+.i{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;border-top:1px dashed #555;padding:12px 0;font-size:clamp(14px,3vw,17px)}
+.i:first-of-type{border-top:0}
+.i .k{color:var(--isik);font-weight:700}
+.i.gecti{opacity:.45;text-decoration:line-through}
+.i.sirada{border:2px solid var(--pas);padding:12px;margin:6px 0;background:rgba(179,38,30,.12)}
+
+/* kontroller */
+.ctl{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;align-items:center;font-size:13px;color:#b9b29d}
+button,label.btn{background:var(--celik2);color:var(--kagit);border:2px solid var(--celik);padding:9px 14px;font:inherit;font-weight:700;cursor:pointer}
+button:hover,label.btn:hover,button:focus-visible,label.btn:focus-within{background:var(--kagit);color:var(--murekkep);outline:none}
+input[type=file]{display:none}
+input[type=date]{background:var(--koyu);color:var(--kagit);border:2px solid var(--celik2);padding:7px;font:inherit;color-scheme:dark}
+#msg{width:100%;text-align:center;font-size:12px}
+
+/* hücre kapısı (giriş ekranı) */
+#giris{position:fixed;inset:0;z-index:10;background:#0b0b0a;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;cursor:pointer;text-align:center;padding:20px;
+  background-image:repeating-linear-gradient(90deg,transparent 0 40px,#2b2e32 40px 52px,#5b6168 52px 56px,#2b2e32 56px 68px,transparent 68px 110px)}
+#giris b{font:400 clamp(30px,8vw,64px) Impact,Haettenschweiler,sans-serif;letter-spacing:.08em;background:#0b0b0a;padding:10px 24px;border:4px solid var(--pas);color:var(--kagit)}
+#giris span{background:#0b0b0a;padding:6px 14px;color:var(--isik);font-size:clamp(13px,3vw,18px)}
+#giris.kapali{display:none}
+</style>
+</head>
+<body>
+<div id="giris" role="button" tabindex="0"><b>HÜCRE KAPISI</b><span>Açmak için tıkla ya da herhangi bir tuşa bas</span></div>
+<main>
+  <div class="pencere" aria-hidden="true"><div class="ay"></div></div>
+  <div>
+    <h1>ÖZGÜRLÜĞE KALAN SÜRE</h1>
+    <span class="tarih">ÇIKIŞ: 25 ŞUBAT 2027</span>
+  </div>
+
+  <section class="kagit" aria-label="Kalan süre">
+    <div class="sayac">
+      <div class="hane"><div class="say" id="ay">0</div><div class="et">AY</div></div>
+      <div class="hane"><div class="say" id="gun">0</div><div class="et">GÜN</div></div>
+      <div class="hane"><div class="say" id="saat">00</div><div class="et">SAAT</div></div>
+      <div class="hane"><div class="say" id="dk">00</div><div class="et">DAKİKA</div></div>
+      <div class="hane"><div class="say" id="sn">00</div><div class="et">SANİYE</div></div>
+    </div>
+    <div class="ozet" id="ozet"></div>
+    <div class="bar"><i id="bar"></i></div>
+    <div class="ozet" id="yuzde"></div>
+  </section>
+
+  <section class="kazi" aria-label="Kalan günler">
+    <h2>DUVARDA KALAN GÜNLER</h2>
+    <div id="kazi"></div>
+    <small id="kaziNot"></small>
+  </section>
+
+  <section class="izin" aria-label="İzinler">
+    <h2>İZİNLER</h2>
+    <div id="izinler"></div>
+  </section>
+
+  <div class="ctl">
+    <button id="play">▶ Müziği çal</button>
+    <label class="btn">Müzik dosyası seç<input type="file" id="file" accept="audio/*"></label>
+    <label>Başlangıç tarihi: <input type="date" id="bas"></label>
+    <div id="msg">Müzik için "selanik.mp3" dosyasını bu sayfayla aynı klasöre koy ya da "Müzik dosyası seç" ile seç.</div>
+  </div>
+  <p class="slogan">Selanik'ten bir fırtına tuttu bizi, ama her fırtına diner.</p>
+</main>
+<audio id="a" src="selanik.mp3" loop preload="auto"></audio>
+
+<script>
+// ---- Ayarlar (istersen buradan değiştir) ----
+const CIKIS = new Date(2027, 1, 25, 0, 0, 0);   // 25 Şubat 2027 00:00
+const IZINLER = [
+  {ad:"Sınav izni", bas:new Date(2026,11,14,0,0,0),  bit:new Date(2026,11,15,23,59,59)},
+  {ad:"Okul sınav izni", bas:new Date(2026,11,26,0,0,0), bit:new Date(2026,11,27,23,59,59)}
+];
+const BASLANGIC_VARSAYILAN = ""; // örn "2025-03-01"
+
+// ---- Yardımcılar ----
+const $=id=>document.getElementById(id);
+const p2=n=>String(n).padStart(2,"0");
+const AYLAR=["Ocak","Şubat","Mart","Nisan","Mayıs","Haziran","Temmuz","Ağustos","Eylül","Ekim","Kasım","Aralık"];
+function fmt(d){return d.getDate()+" "+AYLAR[d.getMonth()]+" "+d.getFullYear()}
+function fark(a,b){
+  let ay=(b.getFullYear()-a.getFullYear())*12+b.getMonth()-a.getMonth();
+  let t=new Date(a.getFullYear(),a.getMonth()+ay,a.getDate(),a.getHours(),a.getMinutes(),a.getSeconds());
+  if(t>b){ay--;t=new Date(a.getFullYear(),a.getMonth()+ay,a.getDate(),a.getHours(),a.getMinutes(),a.getSeconds())}
+  let ms=b-t;
+  const gun=Math.floor(ms/864e5);ms-=gun*864e5;
+  const saat=Math.floor(ms/36e5);ms-=saat*36e5;
+  const dk=Math.floor(ms/6e4);ms-=dk*6e4;
+  return {ay,gun,saat,dk,sn:Math.floor(ms/1e3)};
+}
+function kisa(f){
+  const p=[];
+  if(f.ay)p.push(f.ay+" ay");
+  p.push(f.gun+" gün");
+  p.push(p2(f.saat)+":"+p2(f.dk)+":"+p2(f.sn));
+  return p.join(" ");
+}
+function oku(k){try{return localStorage.getItem(k)}catch(e){return null}}
+function yaz(k,v){try{localStorage.setItem(k,v)}catch(e){}}
+
+// ---- Başlangıç tarihi (ilerleme çubuğu için, isteğe bağlı) ----
+let baslangic=null;
+const kayitli=oku("bas")||BASLANGIC_VARSAYILAN;
+if(kayitli){$("bas").value=kayitli;baslangic=new Date(kayitli+"T00:00:00")}
+$("bas").addEventListener("change",e=>{
+  yaz("bas",e.target.value);
+  baslangic=e.target.value?new Date(e.target.value+"T00:00:00"):null;
+});
+
+// ---- Kazıma çizgileri (5'lik gruplar) ----
+let sonKazi=-1;
+function kaziCiz(n){
+  if(n===sonKazi)return;sonKazi=n;
+  let h="";
+  const tam=Math.floor(n/5),art=n%5;
+  const grup=k=>{
+    let s='<span class="grp"><svg viewBox="0 0 44 36" aria-hidden="true">';
+    for(let i=0;i<Math.min(k,4);i++)s+='<line x1="'+(7+i*10)+'" y1="3" x2="'+(7+i*10)+'" y2="33"/>';
+    if(k===5)s+='<line class="x" x1="1" y1="29" x2="43" y2="7"/>';
+    return s+"</svg></span>";
+  };
+  for(let i=0;i<tam;i++)h+=grup(5);
+  if(art)h+=grup(art);
+  $("kazi").innerHTML=h;
+  $("kaziNot").textContent=n+" gün kaldı. Her gün bir çizgi silinecek.";
+}
+
+// ---- Sayaç ----
+function guncelle(){
+  const now=new Date();
+  if(now>=CIKIS){
+    ["ay","gun","saat","dk","sn"].forEach(i=>$(i).textContent="0");
+    $("ozet").innerHTML="<b>ÖZGÜRSÜN. Hayırlı olsun.</b>";
+    $("bar").style.width="100%";
+    kaziCiz(0);
+  }else{
+    const f=fark(now,CIKIS);
+    $("ay").textContent=f.ay;$("gun").textContent=f.gun;
+    $("saat").textContent=p2(f.saat);$("dk").textContent=p2(f.dk);$("sn").textContent=p2(f.sn);
+    const topMs=CIKIS-now;
+    const topGun=Math.floor(topMs/864e5);
+    $("ozet").innerHTML="Toplam <b>"+topGun+"</b> gün (<b>"+Math.floor(topGun/7)+"</b> hafta <b>"+(topGun%7)+"</b> gün) kaldı.<br>"
+      +"Yani <b>"+Math.floor(topMs/36e5).toLocaleString("tr-TR")+"</b> saat, <b>"+Math.floor(topMs/6e4).toLocaleString("tr-TR")+"</b> dakika.";
+    if(baslangic&&baslangic<now){
+      const y=Math.min(100,Math.max(0,(now-baslangic)/(CIKIS-baslangic)*100));
+      $("bar").style.width=y+"%";
+      $("yuzde").innerHTML="Cezanın <b>%"+y.toFixed(3)+"</b> kısmı tamamlandı.";
+    }else{
+      $("bar").style.width="0";
+      $("yuzde").textContent="İlerleme çubuğu için aşağıdan başlangıç tarihini seç.";
+    }
+    kaziCiz(Math.ceil(topMs/864e5));
+  }
+  // İzinler
+  let sira=true,h="";
+  IZINLER.forEach(iz=>{
+    let cls="",kal="";
+    if(now>iz.bit){cls="gecti";kal="Tamamlandı"}
+    else if(now>=iz.bas){cls="sirada";kal="İzindesin, iyi dinlen!"}
+    else{
+      kal=kisa(fark(now,iz.bas))+" kaldı";
+      if(sira){cls="sirada";sira=false}
+    }
+    h+='<div class="i '+cls+'"><div>'+iz.ad+"<br>"+fmt(iz.bas)+" – "+fmt(iz.bit)+'</div><div class="k">'+kal+"</div></div>";
+  });
+  $("izinler").innerHTML=h;
+}
+guncelle();setInterval(guncelle,1000);
+
+// ---- Müzik ----
+const a=$("a"),btn=$("play"),msg=$("msg"),giris=$("giris");
+function durum(){btn.textContent=a.paused?"▶ Müziği çal":"⏸ Müziği durdur"}
+btn.onclick=e=>{
+  e.stopPropagation();
+  if(a.paused){a.play().then(durum).catch(()=>{msg.textContent="Müzik bulunamadı. 'selanik.mp3' dosyasını aynı klasöre koy veya 'Müzik dosyası seç' ile seç."})}
+  else{a.pause();durum()}
+};
+$("file").onchange=e=>{
+  const f=e.target.files[0];if(!f)return;
+  a.src=URL.createObjectURL(f);
+  a.play().then(()=>{durum();msg.textContent="Çalıyor: "+f.name}).catch(()=>{});
+};
+a.addEventListener("error",()=>{msg.textContent="Müzik dosyası yok. 'selanik.mp3' ekle ya da 'Müzik dosyası seç' kullan.";giris.classList.add("kapali")});
+
+// Otomatik başlat: önce doğrudan dene; tarayıcı engellerse kapıya tıklayınca / tuşa basınca başlar
+function baslat(){
+  a.play().then(()=>{durum();giris.classList.add("kapali");
+    ["click","keydown","touchstart"].forEach(ev=>removeEventListener(ev,baslat))
+  }).catch(()=>{});
+}
+a.volume=.8;
+a.play().then(()=>{durum();giris.classList.add("kapali")}).catch(()=>{});
+["click","keydown","touchstart"].forEach(ev=>addEventListener(ev,baslat));
+giris.addEventListener("click",()=>giris.classList.add("kapali"));
+</script>
+</body>
+</html>
