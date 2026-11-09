@@ -71,6 +71,9 @@ h1{margin:0;text-align:center;font:400 clamp(30px,7vw,60px)/1.05 Impact,Haettens
 .i.gecti{opacity:.45;text-decoration:line-through}
 .i.sirada{border:2px solid var(--pas);padding:12px;margin:6px 0;background:rgba(179,38,30,.12)}
 
+.konum a{color:var(--isik)}
+.konum a:hover,.konum a:focus-visible{color:#fff}
+#koord{color:var(--kagit);font-weight:700;user-select:all}
 /* kontroller */
 .ctl{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;align-items:center;font-size:13px;color:#b9b29d}
 button,label.btn{background:var(--celik2);color:var(--kagit);border:2px solid var(--celik);padding:9px 14px;font:inherit;font-weight:700;cursor:pointer}
@@ -107,6 +110,7 @@ input[type=date]{background:var(--koyu);color:var(--kagit);border:2px solid var(
     <div class="ozet" id="ozet"></div>
     <div class="bar"><i id="bar"></i></div>
     <div class="ozet" id="yuzde"></div>
+    <div class="ozet" id="gecen"></div>
   </section>
 
   <section class="kazi" aria-label="Kalan günler">
@@ -118,6 +122,14 @@ input[type=date]{background:var(--koyu);color:var(--kagit);border:2px solid var(
   <section class="izin" aria-label="İzinler">
     <h2>İZİNLER</h2>
     <div id="izinler"></div>
+  </section>
+
+  <section class="izin konum" aria-label="Konum">
+    <h2>KONUM</h2>
+    <div class="i"><div>Enlem / Boylam<br><span id="koord">40.969393, 29.205462</span></div>
+      <div class="k"><a href="https://www.openstreetmap.org/?mlat=40.969393&amp;mlon=29.205462#map=16/40.969393/29.205462" target="_blank" rel="noopener">Haritada aç</a></div></div>
+    <div class="i"><div>Google Haritalar</div>
+      <div class="k"><a href="https://www.google.com/maps?q=40.969393,29.205462" target="_blank" rel="noopener">Aç</a></div></div>
   </section>
 
   <div class="ctl">
@@ -137,7 +149,7 @@ const IZINLER = [
   {ad:"Sınav izni", bas:new Date(2026,11,14,0,0,0),  bit:new Date(2026,11,15,23,59,59)},
   {ad:"Okul sınav izni", bas:new Date(2026,11,26,0,0,0), bit:new Date(2026,11,27,23,59,59)}
 ];
-const BASLANGIC_VARSAYILAN = "2025-12-07"; // örn "2025-03-01"
+const BASLANGIC_VARSAYILAN = "2025-12-07"; // giriş tarihi
 
 // ---- Yardımcılar ----
 const $=id=>document.getElementById(id);
@@ -217,6 +229,10 @@ function guncelle(){
     }
     kaziCiz(Math.ceil(topMs/864e5));
   }
+  if(baslangic&&baslangic<now){
+    const g=fark(baslangic,now);
+    $("gecen").innerHTML="Giriş: <b>"+fmt(baslangic)+"</b><br>İçeride geçen: <b>"+(g.ay?g.ay+" ay ":"")+g.gun+" gün</b> ("+Math.floor((now-baslangic)/864e5)+" gün)";
+  }else{$("gecen").textContent=""}
   // İzinler
   let sira=true,h="";
   IZINLER.forEach(iz=>{
